@@ -11,7 +11,7 @@
 library(XML)
 library(RCurl)
 
-setwd("~/Liz/_Freelance/_XscapeDresses/html")
+setwd("~/Liz/_Freelance/_XscapeDresses/html_201502")
 rm(list=ls())
 
 ################################################################################
@@ -26,11 +26,13 @@ html0 <- readLines("dxs_dresses.txt")   # ALL dresses, ONLY dresses html
 ndoc <- htmlParse(html0, useInternalNodes=TRUE)
 name <- ndoc["//span[@class='productName']"]
 photourls <- ndoc["//img/@data-src_medium"]    # always 2 of these, though they are same if only one photo...
-dressahref <- ndoc["//a/@href"] # for url... note, only want ones without # or with class='title'...
+dressahref <- ndoc["//a/@href"] # for url... note, only want dresses ones...
 
-# a hrefs have urls not just of dresses, the dresses do not have % in url so remove those
-remove <- grep("%", dressahref)
-dressurl <- dressahref[-remove]
+# a hrefs have urls not just of dresses, the dresses do not have javascript or pinterest in url so remove those
+remove <- grep("javascript", dressahref)
+dressurl1 <- dressahref[-remove]
+remove <- grep("pinterest", dressurl1)
+dressurl <- dressurl1[-remove]
 dressurl <- unique(dressurl)
 
 # photos: parse out the 2 from each other, and remove the '$searchCatMedium$' from ends
@@ -102,7 +104,7 @@ for (i in 1:numdresses) {
         length(dxs1) <- 22
 
         # photo placement will alternate between float left and right
-        if (i %% 2 == 0) { floattxt <- "float:left; margin-right:" }
+        if (i %% 2 == 1) { floattxt <- "float:left; margin-right:" }
         else { floattxt <- "float:right; margin-left:" }
 
         dxs1[1] <- "<br clear=\"all\" />"
@@ -156,35 +158,47 @@ dxs <- dxs3
 ################################################################################
 dxs4 <- dxs3
 
-dxs4 <- gsub("PERSONALTITLE01", "Svelte, Sheer with Beaded Sleeves", dxs4)
-dxs4 <- gsub("PERSONALTITLE02", "Bewitching Beaded Boat Neckline and Sweeping Length", dxs4)
-dxs4 <- gsub("PERSONALTITLE03", "Glamorous Gown with Sexy Sweetheart Bodice", dxs4)
-dxs4 <- gsub("PERSONALTITLE04", "Sweet Silky Goodness", dxs4)
-dxs4 <- gsub("PERSONALTITLE05", "Tempting in Tantalizing Taupe", dxs4)
-dxs4 <- gsub("PERSONALTITLE06", "Ornate and Orignal Neckline on Knee-length Dress", dxs4)
-dxs4 <- gsub("PERSONALTITLE07", "Sweepingly Sleeveless with V-neck and V-back", dxs4)
-dxs4 <- gsub("PERSONALTITLE08", "Alluringly Original Neckline and Smart Styling", dxs4)
-dxs4 <- gsub("PERSONALTITLE09", "Alluring Neckline, Lovely Lacy Sleeves, Sheer Skirt", dxs4)
+dxs4 <- gsub("PERSONALTITLE01", "Beaded Sleeves and Cutouts Highlight Hourglass Curves", dxs4)
+dxs4 <- gsub("PERSONALTITLE02", "Bewitching Crew Neckline, Sleeveless with Sweeping Length", dxs4)
+dxs4 <- gsub("PERSONALTITLE03", "Cutout Neckline, Caviar Beads and Elegant Long Length", dxs4)
+dxs4 <- gsub("PERSONALTITLE04", "Cap Sleeves, Beaded Neckline and Hip Ruching", dxs4)
+dxs4 <- gsub("PERSONALTITLE05", "Sleeveless Halter Neck Two Piece with Sexy Wide Floor Length Skirt", dxs4)
+dxs4 <- gsub("PERSONALTITLE06", "Sexy Strapless Sequined Bodice and Chiffon Skirt", dxs4)
+dxs4 <- gsub("PERSONALTITLE07", "Svelte Sleeveless Scuba Knit with Side Cutouts", dxs4)
+dxs4 <- gsub("PERSONALTITLE08", "Floral Jacquard with A-line Skirt and Separate Sleeveless Off-Shoulder Top", dxs4)
+dxs4 <- gsub("PERSONALTITLE09", "Seductive Illusion Sleeves and Yolk in Little Black Cocktail Dress", dxs4)
+dxs4 <- gsub("PERSONALTITLE10", "Curvy Black Jumpsuit with Flattering V-Neck and Crystal Beaded Back", dxs4)
+dxs4 <- gsub("PERSONALTITLE11", "Elegant Beaded Yoke with Cap Sleeves, Ruched Hip and Floor Length", dxs4)
+dxs4 <- gsub("PERSONALTITLE12", "Mermaid Sheer Skirt with Lacy Sleeves", dxs4)
+dxs4 <- gsub("PERSONALTITLE13", "Lengthen Your Look with Pleated Chiffon with V-Neck and V-Back", dxs4)
 
-dxs4 <- gsub("GETSIZES01", "2, 4, 6, 10, 12, 14", dxs4)
-dxs4 <- gsub("GETSIZES02", "4, 12", dxs4)
+dxs4 <- gsub("GETSIZES01", "2, 4, 6, 8, 10, 12", dxs4)
+dxs4 <- gsub("GETSIZES02", "4, 6, 8, 10, 12, 14", dxs4)
 dxs4 <- gsub("GETSIZES03", "4, 6, 8, 10, 12, 14", dxs4)
-dxs4 <- gsub("GETSIZES04", "6, 8, 10, 12, 14, 16", dxs4)
-dxs4 <- gsub("GETSIZES05", "10", dxs4)
-dxs4 <- gsub("GETSIZES06", "4, 6, 8, 10", dxs4)
-dxs4 <- gsub("GETSIZES07", "4, 6, 8, 10, 12, 14", dxs4)
-dxs4 <- gsub("GETSIZES08", "4, 6, 8, 10, 12, 14", dxs4)
-dxs4 <- gsub("GETSIZES09", "4, 6, 8, 10, 12, 14", dxs4)
+dxs4 <- gsub("GETSIZES04", "4, 10, 14", dxs4)
+dxs4 <- gsub("GETSIZES05", "4, 6, 8, 10, 12, 14", dxs4)
+dxs4 <- gsub("GETSIZES06", "4, 6, 8, 10, 12, 14", dxs4)
+dxs4 <- gsub("GETSIZES07", "2, 4, 6, 8, 10, 12", dxs4)
+dxs4 <- gsub("GETSIZES08", "0, 2, 4, 6, 8, 10, 12", dxs4)
+dxs4 <- gsub("GETSIZES09", "4, 6, 8", dxs4)
+dxs4 <- gsub("GETSIZES10", "8, 10, 12", dxs4)
+dxs4 <- gsub("GETSIZES11", "12", dxs4)
+dxs4 <- gsub("GETSIZES12", "4, 6", dxs4)
+dxs4 <- gsub("GETSIZES13", "6", dxs4)
 
-dxs4 <- gsub("GETCOLORS01", "Plum", dxs4)
-dxs4 <- gsub("GETCOLORS02", "Navy", dxs4)
-dxs4 <- gsub("GETCOLORS03", "Charcoal", dxs4)
-dxs4 <- gsub("GETCOLORS04", "Ivory", dxs4)
-dxs4 <- gsub("GETCOLORS05", "Pure Taupe", dxs4)
-dxs4 <- gsub("GETCOLORS06", "Black", dxs4)
-dxs4 <- gsub("GETCOLORS07", "Black", dxs4)
-dxs4 <- gsub("GETCOLORS08", "Navy", dxs4)
+dxs4 <- gsub("GETCOLORS01", "Black/Nude/Silver", dxs4)
+dxs4 <- gsub("GETCOLORS02", "Black", dxs4)
+dxs4 <- gsub("GETCOLORS03", "Black/Nude/Silver", dxs4)
+dxs4 <- gsub("GETCOLORS04", "Plum/Antique", dxs4)
+dxs4 <- gsub("GETCOLORS05", "White/Black", dxs4)
+dxs4 <- gsub("GETCOLORS06", "Nude/Gold", dxs4)
+dxs4 <- gsub("GETCOLORS07", "Peach Nude", dxs4)
+dxs4 <- gsub("GETCOLORS08", "White/Black", dxs4)
 dxs4 <- gsub("GETCOLORS09", "Black", dxs4)
+dxs4 <- gsub("GETCOLORS10", "Black/Nude/Silver", dxs4)
+dxs4 <- gsub("GETCOLORS11", "Ivory", dxs4)
+dxs4 <- gsub("GETCOLORS12", "Black", dxs4)
+dxs4 <- gsub("GETCOLORS13", "Black", dxs4)
 
 dxs <- dxs4
 

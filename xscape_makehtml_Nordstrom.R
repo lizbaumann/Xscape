@@ -1,4 +1,5 @@
 ################################################################################
+# TO DO:
 #  + decide whether to mix things up more. which do we get paid more for?
 # GOALS:
 # from main Nordstroms and Dillards pages, read in html
@@ -12,7 +13,7 @@
 library(XML)
 library(RCurl)
 
-setwd("~/Liz/_Freelance/_XscapeDresses/html")
+setwd("~/Liz/_Freelance/_XscapeDresses/html_201502")
 rm(list=ls())
 
 ################################################################################
@@ -63,7 +64,7 @@ for (i in 1:numdresses) {
         dresses$nbr[i] <- sub("[^(0-9)]+([0-9]+)[^(0-9)]+", "\\1", dressurl[[i]][1])
         dresses$photo1url[i] <- photo1url[[i]][1]
         if (!is.na(photo2suffix[i])) {dresses$photo2url[i] <- paste0(substr(photo1url[[i]][1], 1, 
-                nchar(photo1url[[i]][1]) - nchar(photo1suffix[1])), photo2suffix[i])}
+                nchar(photo1url[[i]][1]) - nchar(photo1suffix[i])), photo2suffix[i])}
         dresses$price[i] <- xmlValue(price[[i]][1]$text)
 
         # Now, read URL to get dress info: desc, madein, sizes, colors: 
@@ -124,7 +125,8 @@ for (i in 1:numdresses) {
         else { nxs1[7] <- "" }
         nxs1[8] <- "</a>"
         nxs1[9] <- "<strong>"
-        nxs1[10] <- paste0("TITLE_", sprintf("%02d", i), "_n", dresses$nbr) # special title
+        nxs1[10] <- paste0("PERSONALTITLE", sprintf("%02d", i)) # special title
+        # nxs1[10] <- paste0("TITLE_", sprintf("%02d", i), "_n", dresses$nbr) # special title
         nxs1[11] <- "</strong>"
         nxs1[12] <- "<br />"
         nxs1[13] <- paste0(desc, " ", madein, " <strong>Sizes</strong>: ", sizes, 
@@ -161,71 +163,32 @@ nxs <- nxs3
 ################################################################################
 nxs4 <- nxs3
 
-nxs4 <- gsub("PERSONALTITLE01", "Sheer Feminine Fancy with Elegant Embellishments", nxs4)
-nxs4 <- gsub("PERSONALTITLE02", "Soft and Sultry with Beaded Lace", nxs4)
-nxs4 <- gsub("PERSONALTITLE03", "Smart Meets Sexy", nxs4)
-nxs4 <- gsub("PERSONALTITLE04", "Soft Sensible Styling", nxs4)
-nxs4 <- gsub("PERSONALTITLE05", "Show Off Your Sculpted Shoulders", nxs4)
-nxs4 <- gsub("PERSONALTITLE06", "Beautiful Beaded Hem with Sexy Sheerness", nxs4)
-nxs4 <- gsub("PERSONALTITLE07", "One-Shoulder Wonder Gown", nxs4)
-nxs4 <- gsub("PERSONALTITLE08", "Sparklyingly Sexy and Svelte", nxs4)
-nxs4 <- gsub("PERSONALTITLE09", "Sparklyingly Sexy and Svelte, in Petite", nxs4)
-nxs4 <- gsub("PERSONALTITLE10", "Simple Elegance in Inviting Ivory or Eye-Opening Orange", nxs4)
-nxs4 <- gsub("PERSONALTITLE11", "Pleated Pleasure", nxs4)
-nxs4 <- gsub("PERSONALTITLE12", "Beautiful Beading with a Beckoning Back", nxs4)
-nxs4 <- gsub("PERSONALTITLE13", "Scalloping Shoulders in Lovely Lace", nxs4)
-nxs4 <- gsub("PERSONALTITLE14", "Gracefully Gathered Styling", nxs4)
-nxs4 <- gsub("PERSONALTITLE15", "Beaded Bodice, Kimono Sleeves, Knee-length", nxs4)
-nxs4 <- gsub("PERSONALTITLE16", "Sexy Shoulders, Double Colored, Pleated Skirt", nxs4)
-nxs4 <- gsub("PERSONALTITLE17", "Flirtatiously Sheer Top Followed With Faux-wrap Skirt", nxs4)
-nxs4 <- gsub("PERSONALTITLE18", "Sleeveless Wonder with Long Lacy Hem in Eye-popping Royal", nxs4)
-nxs4 <- gsub("PERSONALTITLE19", "Scalloping Shoulders in Lovely Lace", nxs4)
-nxs4 <- gsub("PERSONALTITLE20", "Regal Shoulders and Flowing Skirt", nxs4)
-nxs4 <- gsub("PERSONALTITLE21", "Watermelon Wonder with Comfortable Styling", nxs4)
-nxs4 <- gsub("PERSONALTITLE22", "Exquisite Color in Royal with Glittering Beaded Bodice", nxs4)
-nxs4 <- gsub("PERSONALTITLE23", "Watermelon Wonder with Strapless Sweetheart Bodice", nxs4)
-nxs4 <- gsub("PERSONALTITLE24", "One-Shoulder with Fancifully Flowing Beadwork", nxs4)
-nxs4 <- gsub("PERSONALTITLE25", "Split Back, Simple Skirt, Electric Blue", nxs4)
-nxs4 <- gsub("PERSONALTITLE26", "Simmering, Satiny Sleek Silhouette", nxs4)
-nxs4 <- gsub("PERSONALTITLE27", "Sarong-Style Cocktail Dress Sparkles", nxs4)
-nxs4 <- gsub("PERSONALTITLE28", "Straight Slip-on Cocktail Dress", nxs4)
-nxs4 <- gsub("PERSONALTITLE29", "Split-sleeved Cocktail Dress", nxs4)
-nxs4 <- gsub("PERSONALTITLE30", "Breezy with Elegant Shoulder Brooches", nxs4)
-nxs4 <- gsub("PERSONALTITLE31", "Ornate and Orignal Neckline on Knee-length Dress", nxs4)
-nxs4 <- gsub("PERSONALTITLE32", "Svelte with Bead-coated Shoulders and Back", nxs4)
-nxs4 <- gsub("PERSONALTITLE33", "Perfect for Any Occasion", nxs4)
-nxs4 <- gsub("PERSONALTITLE34", "Emerald Pops and Gunmetal Sizzles, Exquisite Back Cutout", nxs4)
-nxs4 <- gsub("PERSONALTITLE35", "Draped Bodice and Scalloped Knee-length Hemline", nxs4)
-nxs4 <- gsub("PERSONALTITLE36", "Strapless Bodice of Beads and Sequins, Playful Meets Serious", nxs4)
-nxs4 <- gsub("PERSONALTITLE37", "Blue, Beads, Keyhole Neckline and Sweeping Gown", nxs4)
-nxs4 <- gsub("PERSONALTITLE38", "Plum Elegance", nxs4)
-nxs4 <- gsub("PERSONALTITLE39", "Playfully Ornate and Orignal Neckline on Knee-length Dress", nxs4)
-nxs4 <- gsub("PERSONALTITLE40", "Satin and Chiffon Mermaid-Style Gown with Sexy Neckline", nxs4)
-nxs4 <- gsub("PERSONALTITLE41", "Svelte, Silvery Sultryness", nxs4)
-nxs4 <- gsub("PERSONALTITLE42", "Head-to-Toe Interest in Sequins, Lace and Comfortable Jersey", nxs4)
-nxs4 <- gsub("PERSONALTITLE43", "Blue Lacy Goodness with Back Cutout, Cocktail-Length Dress", nxs4)
-nxs4 <- gsub("PERSONALTITLE44", "Shoulder-Shimmering Beaded Straps Top Long Flowing Gown", nxs4)
-nxs4 <- gsub("PERSONALTITLE45", "Strapless, Satiny Starry Night Seduction", nxs4)
-nxs4 <- gsub("PERSONALTITLE46", "Figure-Flattering Lacy Illusions", nxs4)
-nxs4 <- gsub("PERSONALTITLE47", "Magnificient Magenta with Keyhole Front and Interesting Back Cutout", nxs4)
-nxs4 <- gsub("PERSONALTITLE48", "Saucy, Seductive, Scintillating Sidework", nxs4)
-nxs4 <- gsub("PERSONALTITLE49", "Tailored Cocktail with Livening Lacy Back", nxs4)
-nxs4 <- gsub("PERSONALTITLE50", "Front Square Neckline + Compelling Triangle Back Cutout = Intriguing All-around", nxs4)
-nxs4 <- gsub("PERSONALTITLE51", "Dimensionally Dynamic", nxs4)
-nxs4 <- gsub("PERSONALTITLE52", "Foiled Floral Meets Pleasing Pleats", nxs4)
-nxs4 <- gsub("PERSONALTITLE53", "Bold Front and Back Cutouts in Black", nxs4)
-nxs4 <- gsub("PERSONALTITLE54", "Dramatic V-back and Beautiful Beadwork", nxs4)
-nxs4 <- gsub("PERSONALTITLE55", "Enthralling Back Cutouts in Alluring Aqua", nxs4)
-nxs4 <- gsub("PERSONALTITLE56", "Kimono Sleeves, Sensible Styling", nxs4)
-nxs4 <- gsub("PERSONALTITLE57", "Sexy... Short... Sequins... Spectacular!", nxs4)
-nxs4 <- gsub("PERSONALTITLE58", "Beautiful, Breezy Blue with Accordion Chiffon Skirt", nxs4)
-nxs4 <- gsub("PERSONALTITLE59", "Spliced Shoulders Lend Interest to This Royal Wonder", nxs4)
-nxs4 <- gsub("PERSONALTITLE60", "Plunging Back-V Complements Palazzo-Style Pant Legs", nxs4)
-nxs4 <- gsub("PERSONALTITLE61", "Captivating Necklines, Front and Back", nxs4)
-nxs4 <- gsub("PERSONALTITLE62", "Unexpected Edging and Beautiful Back Bow in Straight-line Dress", nxs4)
-nxs4 <- gsub("PERSONALTITLE63", "Feminine, Flattering, Fun and Funky!", nxs4)
-nxs4 <- gsub("PERSONALTITLE64", "Scoop-neck, Stretchy, Comfortable", nxs4)
-nxs4 <- gsub("PERSONALTITLE65", "Curve-Accentuating with Sweepingly Beaded Mesh Shoulders", nxs4)
+nxs4 <- gsub("PERSONALTITLE01", "Comfortable Yet Elegant Polished Stretch Jersey", nxs4)
+nxs4 <- gsub("PERSONALTITLE02", "Curvy Crystalline Confident Crimson", nxs4)
+nxs4 <- gsub("PERSONALTITLE03", "Youthful, Flowing and Sparkly", nxs4)
+nxs4 <- gsub("PERSONALTITLE04", "Casually Styled with Pleasing Pleats", nxs4)
+nxs4 <- gsub("PERSONALTITLE05", "Playful Like a Princess Satiny Two-Piece", nxs4)
+nxs4 <- gsub("PERSONALTITLE06", "Silvery Beaded Sweetheart", nxs4)
+nxs4 <- gsub("PERSONALTITLE07", "Split Sleeves with Sexy Skirt", nxs4)
+nxs4 <- gsub("PERSONALTITLE08", "Single Shoulder Beaded Wonder", nxs4)
+nxs4 <- gsub("PERSONALTITLE09", "Casual Elegance in Flowing Foiled Gown", nxs4)
+nxs4 <- gsub("PERSONALTITLE10", "Exciting Emerald with Neat Neckline", nxs4)
+nxs4 <- gsub("PERSONALTITLE11", "Red and Crystalled Jersey Style Top and Flowing Gown", nxs4)
+nxs4 <- gsub("PERSONALTITLE12", "Black and Crystalled Jersey Style Top and Flowing Gown", nxs4)
+nxs4 <- gsub("PERSONALTITLE13", "Beaded Beautiful Blue", nxs4)
+nxs4 <- gsub("PERSONALTITLE14", "Strap Cutout Back with Side Embellishments, Side Slit", nxs4)
+nxs4 <- gsub("PERSONALTITLE15", "Airy Chiffon with Flirty Corset-Style Back Lacing", nxs4)
+nxs4 <- gsub("PERSONALTITLE16", "Striking and Comfortable Floor Length Gown", nxs4)
+nxs4 <- gsub("PERSONALTITLE17", "Scalloped Lacy Looking Beaded Shoulders in Little Black Sarong Style Dress", nxs4)
+nxs4 <- gsub("PERSONALTITLE18", "Scalloped and Sheer Beaded Shoulders in Little Black Sarong Style Dress", nxs4)
+nxs4 <- gsub("PERSONALTITLE19", "Faux-Wrapped Skirt and Comfy Bodice", nxs4)
+nxs4 <- gsub("PERSONALTITLE20", "Exciting Jeweled Cuffs with Split Sleeves with Sexy Skirt", nxs4)
+nxs4 <- gsub("PERSONALTITLE21", "Scalloped Sheer Beaded Shoulders in Plum Sarong Style Dress", nxs4)
+nxs4 <- gsub("PERSONALTITLE22", "Comfortably Draped Bodice with Split Sleeves and Sensible Skirt", nxs4)
+nxs4 <- gsub("PERSONALTITLE23", "Cold Shoulder Comfy Cocktail", nxs4)
+nxs4 <- gsub("PERSONALTITLE24", "Crisscrossed Neckline in Comfy Stretch Jersey", nxs4)
+nxs4 <- gsub("PERSONALTITLE25", "Cool Cerise Color and Crystals on Long Regal Gown", nxs4)
+nxs4 <- gsub("PERSONALTITLE26", "Ring-Necked Bodice with Shiny Lengthy Skirt", nxs4)
 
 nxs <- nxs4
 
